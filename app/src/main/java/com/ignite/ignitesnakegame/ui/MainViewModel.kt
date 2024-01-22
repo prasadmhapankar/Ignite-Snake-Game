@@ -22,6 +22,29 @@ class MainViewModel @Inject constructor() : ViewModel() {
     }
 
     private fun initBoard() {
-        
+        val emptyBoard = List(50) { List(size = 50) { Cell.EMPTY } }
+        val snake: List<Pair<Int, Int>> = listOf(Pair(3, 0), Pair(3, 1), Pair(3, 2))
+        val fruit: List<Pair<Int, Int>> = listOf(Pair(5, 2), Pair(3, 8), Pair(3, 7))
+
+        val gameBoard = emptyBoard.mapIndexed { index, cells ->
+
+            cells.mapIndexed { column, _ ->
+                if (snake.contains(Pair(index, column))) {
+                    Cell.SNAKE
+                } else if (fruit.contains(Pair(index, column))) {
+                    Cell.FRUIT
+                } else {
+                    Cell.EMPTY
+                }
+            }
+        }
+        _state.value = state.value.copy(board = gameBoard)
+
     }
+
+    fun buildSnake() {
+        _state.value = state.value
+    }
+
+
 }
