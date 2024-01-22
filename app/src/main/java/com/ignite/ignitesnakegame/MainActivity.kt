@@ -20,6 +20,7 @@ import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.ignite.ignitesnakegame.domain.entity.Cell
 import com.ignite.ignitesnakegame.ui.MainViewModel
 import com.ignite.ignitesnakegame.ui.SnakeState
 import com.ignite.ignitesnakegame.ui.theme.IgniteSnakegameTheme
@@ -58,7 +59,11 @@ fun Board(state: State<SnakeState>, modifier: Modifier = Modifier) {
                         modifier = Modifier
                             .size(6.dp)
                             .padding(1.dp)
-                            .background(color = Color.Gray),
+                            .background(color = when(cell) {
+                                Cell.EMPTY -> Color.LightGray
+                                Cell.SNAKE -> Color.Green
+                                Cell.FRUIT -> Color.Red
+                            }),
                     )
                 }
             }
