@@ -4,14 +4,21 @@ import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.ignite.ignitesnakegame.data.SnakeRepository
 import com.ignite.ignitesnakegame.domain.entity.Cell
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 private const val TAG = "MainViewModel"
 
 @HiltViewModel
-class MainViewModel @Inject constructor() : ViewModel() {
+class MainViewModel @Inject constructor(
+    val repository: SnakeRepository
+) : ViewModel() {
 
     private val _state = mutableStateOf(SnakeState())
     val state: State<SnakeState> = _state
@@ -22,6 +29,14 @@ class MainViewModel @Inject constructor() : ViewModel() {
     }
 
     private fun initBoard() {
+
+        //Get SnakeState from server
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.getSnakeState().collectLatest {response ->
+                Log.d(TAG, "initBoard response: $response")
+            }
+        }
+
         val emptyBoard = List(50) { List(size = 50) { Cell.EMPTY } }
         val snake: List<Pair<Int, Int>> = listOf(Pair(3, 0), Pair(3, 1), Pair(3, 2))
         val fruit: List<Pair<Int, Int>> = listOf(Pair(5, 2), Pair(3, 8), Pair(3, 7))
