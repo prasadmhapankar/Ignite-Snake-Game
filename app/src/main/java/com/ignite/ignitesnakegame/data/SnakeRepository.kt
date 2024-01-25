@@ -6,4 +6,5 @@ import retrofit2.Response
 
 interface SnakeRepository {
     suspend fun getSnakeState(): Flow<Response<StateResponse>>
+    suspend fun postSnakeState(postMove: MoveRequest): Flow<Response<StateResponse>>
 }

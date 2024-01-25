@@ -5,12 +5,15 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ignite.ignitesnakegame.data.MoveRequest
 import com.ignite.ignitesnakegame.data.SnakeRepository
+import com.ignite.ignitesnakegame.domain.dto.StateResponse
 import com.ignite.ignitesnakegame.domain.entity.Cell
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import retrofit2.Response
 import javax.inject.Inject
 
 private const val TAG = "MainViewModel"
@@ -28,12 +31,36 @@ class MainViewModel @Inject constructor(
         initBoard()
     }
 
+    fun onEvent(snakeStateEvent: SnakeEvent) {
+        when (snakeStateEvent) {
+            SnakeEvent.OnMoveUp -> postSnakeState()
+        }
+    }
+
+    private fun postSnakeState() {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.postSnakeState(
+                MoveRequest(
+                    playerId = 1,
+                    moveDirection = 1,
+                )
+            ).collectLatest { response: Response<StateResponse> ->
+                if (response.isSuccessful) {
+                    Log.d(TAG, "initBoard Post response: ${response.body()}")
+                }
+            }
+        }
+    }
+
     private fun initBoard() {
 
         //Get SnakeState from server
         viewModelScope.launch(Dispatchers.IO) {
-            repository.getSnakeState().collectLatest {response ->
+            repository.getSnakeState().collectLatest { response ->
                 Log.d(TAG, "initBoard response: $response")
+                if (response.isSuccessful) {
+                    Log.d(TAG, "initBoard Get response: ${response.body()}")
+                }
             }
         }
 

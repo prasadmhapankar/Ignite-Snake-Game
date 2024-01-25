@@ -16,7 +16,15 @@ class SnakeRepositoryImpl @Inject constructor(
         flow {
             val response = apiService.getSnakeState()
             Log.d(TAG, "getSnakeState: $response")
-            if(response.isSuccessful){
+            if (response.isSuccessful) {
+                emit(response)
+            }
+        }
+
+    override suspend fun postSnakeState(postMove: MoveRequest): Flow<Response<StateResponse>> =
+        flow {
+            val response = apiService.postSnakeState(postMove)
+            if (response.isSuccessful) {
                 emit(response)
             }
         }
