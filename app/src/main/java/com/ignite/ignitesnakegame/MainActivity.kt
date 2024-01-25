@@ -9,10 +9,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -23,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.ignite.ignitesnakegame.domain.entity.Cell
+import com.ignite.ignitesnakegame.domain.entity.Direction
 import com.ignite.ignitesnakegame.ui.MainViewModel
 import com.ignite.ignitesnakegame.ui.SnakeEvent
 import com.ignite.ignitesnakegame.ui.SnakeState
@@ -57,7 +56,6 @@ class MainActivity : ComponentActivity() {
 fun Board(
     state: State<SnakeState>,
     onEvent: (event: SnakeEvent) -> Unit,
-    modifier: Modifier = Modifier
 ) {
     val stateBoard = state.value.board
     Column {
@@ -79,7 +77,7 @@ fun Board(
                 }
             }
         }
-        Button(onClick = { onEvent(SnakeEvent.OnMoveUp) }) {
+        Button(onClick = { onEvent(SnakeEvent.OnMove(Direction.UP)) }) {
             Text(
                 text = "UP", modifier = Modifier
                     .size(20.dp)

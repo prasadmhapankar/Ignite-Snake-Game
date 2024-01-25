@@ -3,6 +3,7 @@ package com.ignite.ignitesnakegame.di
 import com.ignite.ignitesnakegame.data.SnakeRepository
 import com.ignite.ignitesnakegame.data.SnakeRepositoryImpl
 import com.ignite.ignitesnakegame.data.SnakeService
+import com.ignite.ignitesnakegame.util.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,7 +21,7 @@ class ServiceModule {
         okHttpClient: OkHttpClient,
         gsonConverterFactory: GsonConverterFactory
     ): Retrofit = Retrofit.Builder()
-        .baseUrl("http://10.0.2.2:8080/")
+        .baseUrl(BASE_URL)
         .addConverterFactory(gsonConverterFactory)
         .client(okHttpClient)
         .build()

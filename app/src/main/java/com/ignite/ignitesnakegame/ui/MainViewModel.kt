@@ -9,6 +9,7 @@ import com.ignite.ignitesnakegame.data.MoveRequest
 import com.ignite.ignitesnakegame.data.SnakeRepository
 import com.ignite.ignitesnakegame.domain.dto.StateResponse
 import com.ignite.ignitesnakegame.domain.entity.Cell
+import com.ignite.ignitesnakegame.domain.entity.Direction
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
@@ -33,16 +34,16 @@ class MainViewModel @Inject constructor(
 
     fun onEvent(snakeStateEvent: SnakeEvent) {
         when (snakeStateEvent) {
-            SnakeEvent.OnMoveUp -> postSnakeState()
+            is SnakeEvent.OnMove -> postSnakeState(snakeStateEvent.direction)
         }
     }
 
-    private fun postSnakeState() {
+    private fun postSnakeState(direction: Direction) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.postSnakeState(
                 MoveRequest(
-                    playerId = 1,
-                    moveDirection = 1,
+                    playerId = "player1",
+                    moveDirection = direction.id,
                 )
             ).collectLatest { response: Response<StateResponse> ->
                 if (response.isSuccessful) {

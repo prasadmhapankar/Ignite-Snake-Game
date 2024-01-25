@@ -1,5 +1,7 @@
 package com.ignite.ignitesnakegame.ui
 
+import com.ignite.ignitesnakegame.domain.entity.Direction
+
 sealed class SnakeEvent {
-    object OnMoveUp: SnakeEvent()
+    data class OnMove(val direction: Direction) : SnakeEvent()
 }
