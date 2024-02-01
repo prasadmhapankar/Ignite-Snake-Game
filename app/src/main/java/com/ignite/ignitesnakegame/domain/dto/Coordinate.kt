@@ -2,9 +2,9 @@ package com.ignite.ignitesnakegame.domain.dto
 
 import com.google.gson.annotations.SerializedName
 
-data class Fruit(
+data class Coordinate(
     @SerializedName("x")
-    val x: Double? = null,
+    val x: Int? = null,
     @SerializedName("y")
-    val y: Double? = null
+    val y: Int? = null
 )

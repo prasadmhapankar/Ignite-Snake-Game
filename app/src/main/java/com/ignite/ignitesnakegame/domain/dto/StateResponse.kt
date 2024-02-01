@@ -4,13 +4,13 @@ import com.google.gson.annotations.SerializedName
 
 data class StateResponse(
     @SerializedName("fruits")
-    val fruits: List<Fruit>,
+    val fruits: List<Coordinate>? = null,
     @SerializedName("gameOver")
-    val gameOver: Boolean,
+    val gameOver: Boolean? = null,
     @SerializedName("isFruitEaten")
-    val isFruitEaten: Boolean,
+    val isFruitEaten: Boolean? = null,
     @SerializedName("message")
-    val message: String,
+    val message: String? = null,
     @SerializedName("snakes")
-    val snakes: Snakes
+    val snakes: Map<String, List<Coordinate>>? = null
 )

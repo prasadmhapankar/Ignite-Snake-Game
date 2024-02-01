@@ -25,6 +25,7 @@ import com.ignite.ignitesnakegame.domain.entity.Direction
 import com.ignite.ignitesnakegame.ui.MainViewModel
 import com.ignite.ignitesnakegame.ui.SnakeEvent
 import com.ignite.ignitesnakegame.ui.SnakeState
+import com.ignite.ignitesnakegame.ui.component.SnakeScreen
 import com.ignite.ignitesnakegame.ui.theme.IgniteSnakegameTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -42,46 +43,12 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Board(
+                    SnakeScreen(
                         mainViewModel.state,
                         mainViewModel::onEvent,
                     )
                 }
             }
-        }
-    }
-}
-
-@Composable
-fun Board(
-    state: State<SnakeState>,
-    onEvent: (event: SnakeEvent) -> Unit,
-) {
-    val stateBoard = state.value.board
-    Column {
-        stateBoard.forEach { row ->
-            Row {
-                row.forEach { cell ->
-                    Box(
-                        modifier = Modifier
-                            .size(6.dp)
-                            .padding(1.dp)
-                            .background(
-                                color = when (cell) {
-                                    Cell.EMPTY -> Color.LightGray
-                                    Cell.SNAKE -> Color.Green
-                                    Cell.FRUIT -> Color.Red
-                                }
-                            ),
-                    )
-                }
-            }
-        }
-        Button(onClick = { onEvent(SnakeEvent.OnMove(Direction.UP)) }) {
-            Text(
-                text = "UP", modifier = Modifier
-                    .size(20.dp)
-            )
         }
     }
 }
