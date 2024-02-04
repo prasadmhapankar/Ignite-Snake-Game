@@ -1,6 +1,6 @@
 package com.ignite.ignitesnakegame.ui
 
-import com.ignite.ignitesnakegame.domain.entity.Cell
+import com.ignite.ignitesnakegame.domain.model.Cell
 
 data class SnakeState(
     val board: List<List<Cell>>? = null,

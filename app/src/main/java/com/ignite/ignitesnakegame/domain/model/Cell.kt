@@ -1,4 +1,4 @@
-package com.ignite.ignitesnakegame.domain.entity
+package com.ignite.ignitesnakegame.domain.model
 
 enum class Cell {
     EMPTY,
