@@ -1,4 +1,4 @@
-package com.ignite.ignitesnakegame
+package com.ignite.ignitesnakegame.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -7,9 +7,10 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import com.ignite.ignitesnakegame.ui.MainViewModel
-import com.ignite.ignitesnakegame.ui.component.SnakeScreen
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.ignite.ignitesnakegame.presentation.component.SnakeScreen
 import com.ignite.ignitesnakegame.ui.theme.IgniteSnakegameTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,9 +28,10 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
+                    val state by mainViewModel.state.collectAsStateWithLifecycle()
                     SnakeScreen(
-                        mainViewModel.state,
-                        mainViewModel::onEvent,
+                        state = state,
+                        onEvent = mainViewModel::onEvent,
                     )
                 }
             }

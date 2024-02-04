@@ -1,4 +1,4 @@
-package com.ignite.ignitesnakegame.ui.component
+package com.ignite.ignitesnakegame.presentation.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -13,22 +13,21 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.ignite.ignitesnakegame.common.Constants.BOARD_SIZE
 import com.ignite.ignitesnakegame.domain.model.Cell
 import com.ignite.ignitesnakegame.domain.util.Direction
-import com.ignite.ignitesnakegame.ui.SnakeEvent
-import com.ignite.ignitesnakegame.ui.SnakeState
-import com.ignite.ignitesnakegame.common.Constants.BOARD_SIZE
+import com.ignite.ignitesnakegame.presentation.SnakeEvent
+import com.ignite.ignitesnakegame.presentation.SnakeState
 
 @Composable
 fun SnakeScreen(
-    state: State<SnakeState>,
+    state: SnakeState,
     onEvent: (event: SnakeEvent) -> Unit,
 ) {
-    val stateBoard = state.value.board
+    val stateBoard = state.board
 
     Column(
         modifier = Modifier.fillMaxSize(),

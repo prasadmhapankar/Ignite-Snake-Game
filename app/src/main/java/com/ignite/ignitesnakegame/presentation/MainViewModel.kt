@@ -1,18 +1,23 @@
-package com.ignite.ignitesnakegame.ui
+package com.ignite.ignitesnakegame.presentation
 
 import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ignite.ignitesnakegame.common.Resource
 import com.ignite.ignitesnakegame.data.MoveRequest
 import com.ignite.ignitesnakegame.domain.model.Cell
-import com.ignite.ignitesnakegame.domain.util.Direction
-import com.ignite.ignitesnakegame.common.Resource
 import com.ignite.ignitesnakegame.domain.use_case.PostSnakeStateUseCase
+import com.ignite.ignitesnakegame.domain.util.Direction
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -24,8 +29,8 @@ class MainViewModel @Inject constructor(
     private val postSnakeStateUseCase: PostSnakeStateUseCase,
 ) : ViewModel() {
 
-    private val _state = mutableStateOf(SnakeState())
-    val state: State<SnakeState> = _state
+    private val _state = MutableStateFlow(SnakeState())
+    val state: StateFlow<SnakeState> = _state.asStateFlow()
 
     init {
         Log.d(TAG, ": MainViewModel init")
@@ -50,8 +55,10 @@ class MainViewModel @Inject constructor(
                     is Resource.Error -> {}
                     is Resource.Loading -> {}
                     is Resource.Success -> {
-                        withContext(Dispatchers.Main) {
-                            _state.value = state.value.copy(board = response.data)
+                        _state.update {
+                            it.copy(
+                                board = response.data
+                            )
                         }
                     }
                 }

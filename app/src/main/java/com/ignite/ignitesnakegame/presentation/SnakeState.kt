@@ -1,4 +1,4 @@
-package com.ignite.ignitesnakegame.ui
+package com.ignite.ignitesnakegame.presentation
 
 import com.ignite.ignitesnakegame.domain.model.Cell
 
