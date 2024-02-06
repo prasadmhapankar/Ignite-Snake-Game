@@ -1,4 +1,4 @@
-package com.ignite.ignitesnakegame.data
+package com.ignite.ignitesnakegame.data.remote
 
 data class MoveRequest(
     val playerId: String,

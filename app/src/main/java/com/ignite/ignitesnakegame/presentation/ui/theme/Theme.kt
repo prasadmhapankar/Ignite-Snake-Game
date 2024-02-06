@@ -1,4 +1,4 @@
-package com.ignite.ignitesnakegame.ui.theme
+package com.ignite.ignitesnakegame.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build
