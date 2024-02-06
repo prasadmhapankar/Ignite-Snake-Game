@@ -4,4 +4,6 @@ import com.ignite.ignitesnakegame.domain.util.Direction
 
 sealed class SnakeEvent {
     data class OnMove(val direction: Direction) : SnakeEvent()
+    object OnGet : SnakeEvent()
+    //object ResetAndPlay : SnakeEvent()
 }

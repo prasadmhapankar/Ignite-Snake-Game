@@ -1,4 +1,4 @@
-package com.ignite.ignitesnakegame.ui.theme
+package com.ignite.ignitesnakegame.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

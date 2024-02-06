@@ -1,6 +1,7 @@
 package com.ignite.ignitesnakegame.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
+import com.ignite.ignitesnakegame.domain.model.Coordinate
 import com.ignite.ignitesnakegame.domain.model.SnakeBoard
 
 data class SnakeBoardDto(
@@ -17,9 +18,9 @@ data class SnakeBoardDto(
 )
 
 fun SnakeBoardDto.toSnakeBoard(): SnakeBoard = SnakeBoard(
-    fruits = fruits,
+    fruits = fruits?.toCoordinateList(),
     gameOver = gameOver,
     isFruitEaten = isFruitEaten,
     message = message,
-    snakes = snakes,
+    snakes = snakes?.mapValues { it.value.toCoordinateList() },
 )

@@ -11,7 +11,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ignite.ignitesnakegame.presentation.component.SnakeScreen
-import com.ignite.ignitesnakegame.ui.theme.IgniteSnakegameTheme
+import com.ignite.ignitesnakegame.presentation.ui.theme.IgniteSnakegameTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -32,6 +32,7 @@ class MainActivity : ComponentActivity() {
                     SnakeScreen(
                         state = state,
                         onEvent = mainViewModel::onEvent,
+                        eventsFlow = mainViewModel.eventsFlow,
                     )
                 }
             }

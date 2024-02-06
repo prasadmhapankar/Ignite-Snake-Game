@@ -1,6 +1,6 @@
 package com.ignite.ignitesnakegame.data.repository
 
-import com.ignite.ignitesnakegame.data.MoveRequest
+import com.ignite.ignitesnakegame.data.remote.MoveRequest
 import com.ignite.ignitesnakegame.data.remote.SnakeService
 import com.ignite.ignitesnakegame.data.remote.dto.SnakeBoardDto
 import com.ignite.ignitesnakegame.domain.repository.SnakeRepository
@@ -14,5 +14,8 @@ class SnakeRepositoryImpl @Inject constructor(
 
     override suspend fun postSnakeState(postMove: MoveRequest): SnakeBoardDto =
         apiService.postSnakeState(postMove)
+
+    override suspend fun resetGame(): SnakeBoardDto =
+        apiService.resetGame()
 
 }
